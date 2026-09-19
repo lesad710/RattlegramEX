@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:orientation="vertical"
+	android:padding="20dp">
+
+	<RadioGroup
+		android:id="@+id/tile_source_group"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<RadioButton
+			android:id="@+id/tile_osm"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/map_osm" />
+
+		<RadioButton
+			android:id="@+id/tile_topo"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/map_topo" />
+
+		<RadioButton
+			android:id="@+id/tile_custom"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/map_custom" />
+	</RadioGroup>
+
+	<EditText
+		android:id="@+id/tile_url"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="12dp"
+		android:hint="@string/tile_url_hint"
+		android:inputType="textUri"
+		android:singleLine="true" />
+</LinearLayout>

@@ -10,11 +10,80 @@
 		app:showAsAction="always"
 		tools:ignore="AlwaysShowAction" />
 	<item
-		android:id="@+id/action_compose"
-		android:icon="@drawable/ic_baseline_chat_bubble_outline_24"
-		android:title="@string/compose"
+		android:id="@+id/action_toggle_background_monitor"
+		android:icon="@drawable/ic_baseline_graphic_eq_24"
+		android:title="@string/background_monitor"
 		app:iconTint="@color/tint"
-		app:showAsAction="always" />
+		app:showAsAction="always"
+		tools:ignore="AlwaysShowAction" />
+	<item android:title="@string/monitoring">
+		<menu>
+			<item android:title="@string/notify_sound">
+				<menu>
+					<group android:checkableBehavior="single">
+						<item
+							android:id="@+id/action_enable_notify_sound"
+							android:title="@string/enable" />
+						<item
+							android:id="@+id/action_disable_notify_sound"
+							android:title="@string/disable" />
+					</group>
+				</menu>
+			</item>
+			<item android:title="@string/notify_device">
+				<menu>
+					<group android:checkableBehavior="single">
+						<item
+							android:id="@+id/action_set_notify_device_default"
+							android:title="@string/notify_device_default" />
+						<item
+							android:id="@+id/action_set_notify_device_speaker"
+							android:title="@string/notify_device_speaker" />
+						<item
+							android:id="@+id/action_set_notify_device_bluetooth"
+							android:title="@string/notify_device_bluetooth" />
+						<item
+							android:id="@+id/action_set_notify_device_wired"
+							android:title="@string/notify_device_wired" />
+					</group>
+				</menu>
+			</item>
+		</menu>
+	</item>
+	<item android:title="@string/location">
+		<menu>
+			<item android:title="@string/attach_location">
+				<menu>
+					<group android:checkableBehavior="single">
+						<item
+							android:id="@+id/action_enable_attach_location"
+							android:title="@string/enable" />
+						<item
+							android:id="@+id/action_disable_attach_location"
+							android:title="@string/disable" />
+					</group>
+				</menu>
+			</item>
+			<item android:title="@string/position_beacon">
+				<menu>
+					<group android:checkableBehavior="single">
+						<item
+							android:id="@+id/action_enable_position_beacon"
+							android:title="@string/enable" />
+						<item
+							android:id="@+id/action_disable_position_beacon"
+							android:title="@string/disable" />
+					</group>
+				</menu>
+			</item>
+			<item
+				android:id="@+id/action_open_map"
+				android:title="@string/open_map" />
+			<item
+				android:id="@+id/action_map_tiles"
+				android:title="@string/map_tiles" />
+		</menu>
+	</item>
 	<item android:title="@string/encoder_settings">
 		<menu>
 			<item android:title="@string/sample_rate">
@@ -95,6 +164,12 @@
 			<item
 				android:id="@+id/action_set_carrier_frequency"
 				android:title="@string/carrier_frequency" />
+			<item
+				android:id="@+id/action_fm_radio_link"
+				android:title="@string/fm_radio_link" />
+			<item
+				android:id="@+id/action_ssb_radio_link"
+				android:title="@string/ssb_radio_link" />
 		</menu>
 	</item>
 	<item android:title="@string/decoder_settings">
@@ -169,6 +244,18 @@
 	</item>
 	<item android:title="@string/repeater_mode">
 		<menu>
+		<item android:title="@string/mesh_relay">
+				<menu>
+					<group android:checkableBehavior="single">
+						<item
+							android:id="@+id/action_enable_mesh_relay"
+							android:title="@string/enable" />
+						<item
+							android:id="@+id/action_disable_mesh_relay"
+							android:title="@string/disable" />
+					</group>
+				</menu>
+			</item>
 			<group android:checkableBehavior="single">
 				<item
 					android:id="@+id/action_enable_repeater_mode"
@@ -231,19 +318,9 @@
 				android:title="@string/disable" />
 		</menu>
 	</item>
-	<item android:title="@string/danger_zone">
-		<menu>
-			<item
-				android:id="@+id/action_delete_messages"
-				android:title="@string/delete_messages" />
-			<item
-				android:id="@+id/action_enable_ultrasonic"
-				android:title="@string/enable_ultrasonic" />
-			<item
-				android:id="@+id/action_force_quit"
-				android:title="@string/force_quit" />
-		</menu>
-	</item>
+	<item
+		android:id="@+id/action_delete_messages"
+		android:title="@string/delete_messages" />
 	<item
 		android:id="@+id/action_edit_call_sign"
 		android:title="@string/call_sign" />
@@ -253,4 +330,7 @@
 	<item
 		android:id="@+id/action_about"
 		android:title="@string/about" />
+	<item
+				android:id="@+id/action_force_quit"
+				android:title="@string/force_quit" />
 </menu>

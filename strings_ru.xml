@@ -1,9 +1,9 @@
 <resources>
 	<string name="app_name">Rattlegram</string>
-	<string name="decoder_settings">Декодирование</string>
-	<string name="encoder_settings">Кодирование</string>
+	<string name="decoder_settings">Настройка декодирования</string>
+	<string name="encoder_settings">Настройка кодирования</string>
 	<string name="delete">Удалить</string>
-	<string name="delete_messages">Очистить историю</string>
+	<string name="delete_messages">Удалить сообщения</string>
 	<string name="danger_zone">Danger Zone</string>
 	<string name="sample_rate">Дискретизация</string>
 	<string name="rate_8000">8 кГц</string>
@@ -35,7 +35,7 @@
 	<string name="one_minute">1 минута</string>
 	<string name="two_minutes">2 минуты</string>
 	<string name="fancy_header">Заголовок для SDR</string>
-	<string name="repeater_mode">Ретраслятор</string>
+	<string name="repeater_mode">Режим репитера</string>
 	<string name="delay">Задержка</string>
 	<string name="no_delay">Без задержки</string>
 	<string name="debounce">Debounce</string>
@@ -46,7 +46,7 @@
 	<string name="force_quit">ВЫХОД</string>
 	<string name="enable_ultrasonic">Включить ультразвук</string>
 	<string name="quit">Выход</string>
-	<string name="crash_dialog_title">При последнем запуске приложение упало - отправьте этот текст разработчикам t.me/js8net</string>
+	<string name="crash_dialog_title">При последнем запуске приложение упало - отправьте этот текст разработчикам t/me/js8net</string>
 	<string name="copy_crash">Скопировать ошибку</string>
 	<string name="close">Закрыть</string>
 	<string name="okay">ОК</string>
@@ -174,9 +174,7 @@
 	<string name="no_nodes">Нет известных нод</string>
 	<string name="map_load_failed">Карта недоступна</string>
 	<string name="fm_radio_link">Настройка для FM</string>
-	<string name="ssb_radio_link">Настройка для SSB</string>
-	<string name="fm_radio_link_done">Применены настройки для FM: преамбула 2 с, несущая 1500 Гц</string>
-	<string name="ssb_radio_link_done">Применены настройки для SSB: преамбула 2 с, несущая 1000 Гц</string>
+	<string name="fm_radio_link_done">Применены настройки для FM: преамбула 2 с, расширенный заголовок, несущая 1500 Гц</string>
 	<string name="enable_position_beacon">ГеоМаяк: Включить</string>
 	<string name="disable_position_beacon">ГеоМаяк: Выключить</string>
 	<string name="beacon_started">ГеоМаяк передаёт локацию (каждые 10 минут)</string>
@@ -185,13 +183,12 @@
 	<string-array name="message_templates">
 		<item>ДА</item>
 		<item>НЕТ</item>
-		<item>ТРЕВОГА</item>
 		<item>Вызываю все станции</item>
 		<item>Передаю координаты</item>
 		<item>Встречаемся здесь</item>
 		<item>Выдвигаюсь к тебе</item>
-		<item>Не буду это делать</item>
 		<item>Всё хорошо</item>
+		<item>Тревога</item>
 		<item>Жду ответа</item>
 		<item>Принято</item>
 	</string-array>

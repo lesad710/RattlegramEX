@@ -10,8 +10,9 @@ android {
         applicationId "com.aicodix.rattlegram"
         minSdk 21
         targetSdk 36
-        versionCode 19
-        versionName "1.18"
+        versionCode 21
+        versionName "1.20-gps-fix"
+        testInstrumentationRunner "com.aicodix.rattlegram.StabilityInstrumentation"
 
         externalNativeBuild {
             cmake {
@@ -51,4 +52,5 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.7.1'
     implementation 'com.google.android.material:material:1.13.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
+    implementation 'org.osmdroid:osmdroid-android:6.1.16'
 }

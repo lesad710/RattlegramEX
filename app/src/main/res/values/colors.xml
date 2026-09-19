@@ -6,4 +6,7 @@
 	<color name="thin">#FFE0E0E0</color>
 	<color name="white">#FFFFFFFF</color>
 	<color name="tint">#FF000000</color>
+	<color name="gps_green">#FF00FF00</color>
+	<color name="my_location">#FF2196F3</color>
+	<color name="accent">#FF00A65B</color>
 </resources>

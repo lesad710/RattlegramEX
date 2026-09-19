@@ -10,7 +10,22 @@ Copyright 2022 Ahmet Inan <inan@aicodix.de>
 #include "decoder.hh"
 
 static EncoderInterface *encoder;
-static DecoderInterface *decoder;
+// Every service instance owns its decoder. An old worker may still be
+// finishing shutdown while a new service starts.
+static jfieldID decoderField(JNIEnv *env, jobject instance) {
+	jclass type = env->GetObjectClass(instance);
+	jfieldID field = env->GetFieldID(type, "nativeDecoder", "J");
+	env->DeleteLocalRef(type);
+	return field;
+}
+
+static DecoderInterface *getDecoder(JNIEnv *env, jobject instance) {
+	return reinterpret_cast<DecoderInterface *>(env->GetLongField(instance, decoderField(env, instance)));
+}
+
+static void setDecoder(JNIEnv *env, jobject instance, DecoderInterface *decoder) {
+	env->SetLongField(instance, decoderField(env, instance), reinterpret_cast<jlong>(decoder));
+}
 
 extern "C" JNIEXPORT jboolean JNICALL
 Java_com_aicodix_rattlegram_MainActivity_createEncoder(
@@ -62,9 +77,10 @@ Java_com_aicodix_rattlegram_MainActivity_produceEncoder(
 
 	jshort *audioBuffer = env->GetShortArrayElements(JNI_audioBuffer, nullptr);
 	jboolean okay = false;
-	if (audioBuffer)
+	if (audioBuffer) {
 		okay = encoder->produce(audioBuffer, channelSelect);
-	env->ReleaseShortArrayElements(JNI_audioBuffer, audioBuffer, 0);
+		env->ReleaseShortArrayElements(JNI_audioBuffer, audioBuffer, 0);
+	}
 	return okay;
 }
 
@@ -103,18 +119,20 @@ Java_com_aicodix_rattlegram_MainActivity_configureEncoder(
 }
 
 extern "C" JNIEXPORT void JNICALL
-Java_com_aicodix_rattlegram_MainActivity_destroyDecoder(
-	JNIEnv *,
-	jobject) {
+Java_com_aicodix_rattlegram_SignalMonitor_destroyDecoder(
+	JNIEnv *env,
+	jobject instance) {
+	DecoderInterface *decoder = getDecoder(env, instance);
 	delete decoder;
-	decoder = nullptr;
+	setDecoder(env, instance, nullptr);
 }
 
 extern "C" JNIEXPORT jboolean JNICALL
-Java_com_aicodix_rattlegram_MainActivity_createDecoder(
-	JNIEnv *,
-	jobject,
+Java_com_aicodix_rattlegram_SignalMonitor_createDecoder(
+	JNIEnv *env,
+	jobject instance,
 	jint sampleRate) {
+	DecoderInterface *decoder = getDecoder(env, instance);
 	if (decoder && decoder->rate() == sampleRate)
 		return true;
 	delete decoder;
@@ -137,31 +155,35 @@ Java_com_aicodix_rattlegram_MainActivity_createDecoder(
 		default:
 			decoder = nullptr;
 	}
+	setDecoder(env, instance, decoder);
 	return decoder != nullptr;
 }
 
 extern "C" JNIEXPORT jint JNICALL
-Java_com_aicodix_rattlegram_MainActivity_fetchDecoder(
+Java_com_aicodix_rattlegram_SignalMonitor_fetchDecoder(
 	JNIEnv *env,
-	jobject,
+	jobject instance,
 	jbyteArray JNI_payload) {
+	DecoderInterface *decoder = getDecoder(env, instance);
 	jint status = -1;
 	if (decoder) {
 		jbyte *payload = env->GetByteArrayElements(JNI_payload, nullptr);
-		if (payload)
+		if (payload) {
 			status = decoder->fetch(reinterpret_cast<uint8_t *>(payload));
-		env->ReleaseByteArrayElements(JNI_payload, payload, 0);
+			env->ReleaseByteArrayElements(JNI_payload, payload, 0);
+		}
 	}
 	return status;
 }
 
 extern "C" JNIEXPORT void JNICALL
-Java_com_aicodix_rattlegram_MainActivity_stagedDecoder(
+Java_com_aicodix_rattlegram_SignalMonitor_stagedDecoder(
 	JNIEnv *env,
-	jobject,
+	jobject instance,
 	jfloatArray JNI_carrierFrequencyOffset,
 	jintArray JNI_operationMode,
 	jbyteArray JNI_callSign) {
+	DecoderInterface *decoder = getDecoder(env, instance);
 
 	if (!decoder)
 		return;
@@ -193,12 +215,13 @@ Java_com_aicodix_rattlegram_MainActivity_stagedDecoder(
 }
 
 extern "C" JNIEXPORT jboolean JNICALL
-Java_com_aicodix_rattlegram_MainActivity_feedDecoder(
+Java_com_aicodix_rattlegram_SignalMonitor_feedDecoder(
 	JNIEnv *env,
-	jobject,
+	jobject instance,
 	jshortArray JNI_audioBuffer,
 	jint sampleCount,
 	jint channelSelect) {
+	DecoderInterface *decoder = getDecoder(env, instance);
 
 	jboolean status = false;
 
@@ -221,9 +244,10 @@ Java_com_aicodix_rattlegram_MainActivity_feedDecoder(
 }
 
 extern "C" JNIEXPORT jint JNICALL
-Java_com_aicodix_rattlegram_MainActivity_processDecoder(
-	JNIEnv *,
-	jobject) {
+Java_com_aicodix_rattlegram_SignalMonitor_processDecoder(
+	JNIEnv *env,
+	jobject instance) {
+	DecoderInterface *decoder = getDecoder(env, instance);
 
 	if (!decoder)
 		return STATUS_HEAP;
@@ -232,12 +256,13 @@ Java_com_aicodix_rattlegram_MainActivity_processDecoder(
 }
 
 extern "C" JNIEXPORT void JNICALL
-Java_com_aicodix_rattlegram_MainActivity_spectrumDecoder(
+Java_com_aicodix_rattlegram_SignalMonitor_spectrumDecoder(
 	JNIEnv *env,
-	jobject,
+	jobject instance,
 	jintArray JNI_spectrumPixels,
 	jintArray JNI_spectrogramPixels,
 	jint spectrumTint) {
+	DecoderInterface *decoder = getDecoder(env, instance);
 
 	if (!decoder)
 		return;

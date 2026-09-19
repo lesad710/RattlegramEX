@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:orientation="horizontal"
+	android:paddingStart="8dp"
+	android:paddingEnd="8dp"
+	android:paddingTop="4dp"
+	android:paddingBottom="4dp">
+
+	<LinearLayout
+		android:id="@+id/bubble"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:maxWidth="300dp"
+		android:background="@drawable/bubble_in"
+		android:paddingStart="10dp"
+		android:paddingEnd="10dp"
+		android:paddingTop="6dp"
+		android:paddingBottom="6dp">
+
+		<TextView
+			android:id="@+id/row_callsign"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textSize="12sp"
+			android:textStyle="bold"
+			android:paddingBottom="2dp"/>
+
+		<TextView
+			android:id="@+id/row_body"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textSize="16sp"/>
+
+		<TextView
+			android:id="@+id/row_info"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textSize="11sp"
+			android:paddingTop="2dp"/>
+	</LinearLayout>
+</LinearLayout>
